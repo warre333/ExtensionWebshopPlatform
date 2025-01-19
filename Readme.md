@@ -16,7 +16,7 @@ The base platform is the core of the webshop. It contains the basic functions th
 
 ## API
 The API is build in NextJS. This API will handle the business logic of the store dashboard and the webshop. The API will have the following endpoints:
-- /api/auth (login, register, forgot password, reset password)
+- /api/auth (login, register, forgot password, reset password makes uses of auth0)
 - /api/users (get user, update user, delete user)
 - /api/customers (CRUD)
 - /api/stores (CRUD)
@@ -36,7 +36,7 @@ The frontend is build in NextJS. The frontend makes uses of subdomain wildcard w
 - domain/auth/login - register - forgot-password - reset-password (The auth pages)
 - domain/ (The homepage of the platform)
 
-I will be using PostgreSQL for the database. The tables that will be in the database are defined in the ERD, which can be found [here](./Documentation/Blueprinting/ERD.png).
+I will be using PostgreSQL for the database. The tables that will be in the database are defined in the ERD, which can be found [here](./Documentation/Blueprinting/ERD.png). The database will be created by the [database document](./BasePlatform/Database/InitalDb.sql)
 
 # Extensions
 The extensions are the modules that can be installed in the webshop. The extensions can be created by other developers and shared with others. The extensions will be installed in the base platform and will be shown in the dashboard of the store owner. The extensions will can be build in any language and should be hosted independently.
