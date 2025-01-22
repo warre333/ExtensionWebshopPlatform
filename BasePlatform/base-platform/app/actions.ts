@@ -4,18 +4,20 @@ import { encodedRedirect } from "@/utils/utils";
 import { createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { CreateUser } from "@/queries/users";
 
 export const signUpAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
   const password = formData.get("password")?.toString();
+  const fullName = formData.get("fullName")?.toString();
   const supabase = await createClient();
   const origin = (await headers()).get("origin");
 
-  if (!email || !password) {
+  if (!email || !password || !fullName) {
     return encodedRedirect(
       "error",
       "/sign-up",
-      "Email and password are required",
+      "Email, password, and display name are required",
     );
   }
 
@@ -24,6 +26,9 @@ export const signUpAction = async (formData: FormData) => {
     password,
     options: {
       emailRedirectTo: `${origin}/auth/callback`,
+      data: {
+        displayName: fullName,
+      },
     },
   });
 
@@ -31,6 +36,28 @@ export const signUpAction = async (formData: FormData) => {
     console.error(error.code + " " + error.message);
     return encodedRedirect("error", "/sign-up", error.message);
   } else {
+    const user = await supabase.auth.getUser();
+    const userId = user.data.user?.id;
+
+    if (!userId) {
+      return encodedRedirect(
+        "error",
+        "/sign-up",
+        "Could not create user",
+      );
+    }
+
+    const { data, error } = await CreateUser(userId, fullName);
+
+    if (error) {
+      console.error(error);
+      return encodedRedirect(
+        "error",
+        "/sign-up",
+        "Could not create user",
+      );
+    }
+
     return encodedRedirect(
       "success",
       "/sign-up",

@@ -9,13 +9,6 @@ export default async function Signup(props: {
   searchParams: Promise<Message>;
 }) {
   const searchParams = await props.searchParams;
-  if ("message" in searchParams) {
-    return (
-      <div className="w-full flex-1 flex items-center h-screen sm:max-w-md justify-center gap-2 p-4">
-        <FormMessage message={searchParams} />
-      </div>
-    );
-  }
 
   return (
     <>
@@ -28,8 +21,15 @@ export default async function Signup(props: {
           </Link>
         </p>
         <div className="flex flex-col gap-2 [&>input]:mb-3 mt-8">
+          {/* Name */}
+          <Label htmlFor="fullName">Full name</Label>
+          <Input name="fullName" placeholder="John Doe" required />
+
+          {/* Email */}
           <Label htmlFor="email">Email</Label>
           <Input name="email" placeholder="you@example.com" required />
+
+          {/* Password */}
           <Label htmlFor="password">Password</Label>
           <Input
             type="password"
