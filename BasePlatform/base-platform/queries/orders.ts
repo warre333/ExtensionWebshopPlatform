@@ -22,14 +22,14 @@ export const CreateOrder = async (formData: FormData) => {
         console.error(error.message);
         return encodedRedirect(
             "error",
-            "/dashboard",
+            "/admin",
             "Could not create order",
         );
     }
 
     return encodedRedirect(
         "success",
-        "/dashboard",
+        "/admin",
         "Order created",
     );
 }

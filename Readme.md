@@ -28,10 +28,14 @@ The API is build in NextJS. This API will handle the business logic of the store
 The frontend is build in NextJS. The frontend makes uses of subdomain wildcard where the webshop and dashboard will be shown for the store, for example: warre.localhost. The frontend will have the following pages:
 - store.domain/ (The webshop)
 - store.domain/admin (The dashboard for the store owner)
+    - store.domain/admin/create-store (store creation flow)
 - store.domain/admin/extensions (The dashboard for the store owner to manage the extensions)
 - store.domain/admin/customers
+    - store.domain/admin/customers/[customer id]
 - store.domain/admin/products
+    - store.domain/admin/products/[product id]
 - store.domain/admin/orders
+    - store.domain/admin/orders/[order id]
 - store.domain/admin/settings
 - domain/auth/login - register - forgot-password - reset-password (The auth pages)
 - domain/ (The homepage of the platform)

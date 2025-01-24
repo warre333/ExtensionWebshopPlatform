@@ -17,7 +17,7 @@ export default async function DashboardPage() {
   const store = await GetStoreFromUser();
 
   if (!store) {
-    return redirect("/dashboard/create-store");
+    return redirect("/admin/create-store");
   }
 
   const storeId = store[0].id;
@@ -31,7 +31,7 @@ export default async function DashboardPage() {
       <div className="flex flex-col gap-8">
         <div className="flex items-center gap-4">
           <div className="w-1/2">
-            <h2 className="text-lg font-light">Welcome back, {user.email}!</h2>
+            <h2 className="text-lg font-light">Welcome back, {user.user_metadata.displayName || user.email}!</h2>
           </div>          
         </div>
         <div className="flex flex-col gap-4">
@@ -64,7 +64,7 @@ export default async function DashboardPage() {
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{order.order_date}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{order.status}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    <a href={`/dashboard/orders/${order.id}`} className="text-blue-500 hover:text-blue-700">View order</a>
+                    <a href={`/admin/orders/${order.id}`} className="text-blue-500 hover:text-blue-700">View order</a>
                   </td>
                 </tr>  
               ))}            

@@ -1,3 +1,6 @@
+25/01: Added typescript types to the database queries.
+24/01: Querying the orders from the database to display on the dashboard.
+23/01: First dashboard screen made.
 22/01: Fixed the error message on authentication, and added the user's name to the authentication flow. 
 21/01: I cloned the supabase nextjs template which implements authentication. I removed the parts I don't need. I will use this as a starting point for the project.
 20/01: I created the first database in supabase.

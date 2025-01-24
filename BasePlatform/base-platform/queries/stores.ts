@@ -21,14 +21,14 @@ export const CreateStore = async (formData: FormData) => {
         return;
         // return encodedRedirect(
         //     "error",
-        //     "/dashboard",
+        //     "/admin",
         //     "Could not create store",
         // );
     }
     
     return  // encodedRedirect(
     //     "success",
-    //     "/dashboard",
+    //     "/admin",
     //     "Store created",
     // );
 }
