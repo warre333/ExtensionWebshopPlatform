@@ -20,8 +20,7 @@ export default async function DashboardPage() {
     return redirect("/admin/create-store");
   }
 
-  const storeId = store[0].id;
-  const orders = await GetOrdersFromStore(storeId);
+  const orders = await GetOrdersFromStore(store.id.toString());
 
   return orders && orders.length > 0 ? (
     <div className="flex-1 w-full flex flex-col gap-4">
@@ -60,7 +59,7 @@ export default async function DashboardPage() {
               {orders.map((order, key) => (
                 <tr key={key}>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{order.id}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{order.customer.name}</td> {/* TODO: create ts interfaces for the database */}
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{order.customer.name}</td> 
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{order.order_date}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{order.status}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">

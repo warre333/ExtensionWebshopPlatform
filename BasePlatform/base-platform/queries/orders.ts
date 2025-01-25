@@ -1,3 +1,4 @@
+import { OrderWithCustomer } from "@/types";
 import { createClient } from "@/utils/supabase/server";
 import { encodedRedirect } from "@/utils/utils";
 
@@ -34,26 +35,27 @@ export const CreateOrder = async (formData: FormData) => {
     );
 }
 
-export const GetOrdersFromStore = async (store_id: string) => {
+export const GetOrdersFromStore = async (store_id: string): Promise<OrderWithCustomer[]> => {
     const supabase = await createClient();
     const { data, error } = await supabase
         .from("orders")
         .select(`
             id,
             customer:customers (
-                name
+                id,
+                name,
+                email
             ),
             order_date,
             status   
         `)
         .eq("store_id", store_id);
 
-    console.log(data)
-
+        console.log(data)
     if (error) {
         console.error(error.message);
         return [];
     }
-    
-    return data;
+
+    return data as unknown as OrderWithCustomer[]; // 😭 Customer type is an array type but isn't?
 }

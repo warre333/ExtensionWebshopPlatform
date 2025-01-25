@@ -1,3 +1,4 @@
+import { Store } from "@/types";
 import { createClient } from "@/utils/supabase/server";
 import { encodedRedirect } from "@/utils/utils";
 
@@ -33,7 +34,7 @@ export const CreateStore = async (formData: FormData) => {
     // );
 }
 
-export const GetStoreFromUser = async () => {
+export const GetStoreFromUser = async (): Promise<Store | null> => {
     const supabase = await createClient();
     const user = await supabase.auth.getUser();
     const userId = user.data.user?.id;
@@ -47,5 +48,5 @@ export const GetStoreFromUser = async () => {
         return null;
     }
     
-    return data;
+    return data[0];
 }
