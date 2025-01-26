@@ -1,3 +1,4 @@
+"use server";
 import { OrderWithCustomer } from "@/types";
 import { createClient } from "@/utils/supabase/server";
 import { encodedRedirect } from "@/utils/utils";

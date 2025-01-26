@@ -1,3 +1,4 @@
+26/01: Finished the sign up flow. The user can now create a store after signing up.
 25/01: Added typescript types to the database queries. Also created all polices for the database tables.
 24/01: Querying the orders from the database to display on the dashboard.
 23/01: First dashboard screen made.

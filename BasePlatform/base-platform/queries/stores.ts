@@ -1,6 +1,9 @@
+"use server";
+
 import { Store } from "@/types";
 import { createClient } from "@/utils/supabase/server";
 import { encodedRedirect } from "@/utils/utils";
+import { redirect } from "next/navigation";
 
 export const CreateStore = async (formData: FormData) => {
     const supabase = await createClient();
@@ -13,25 +16,20 @@ export const CreateStore = async (formData: FormData) => {
     } = await supabase.from("stores").insert([
         {
             user_id: userId,
-            name: formData.get("name")
+            name: formData.get("storeName")
         }
     ]);
     
     if (error) {
         console.error(error.message);
-        return;
-        // return encodedRedirect(
-        //     "error",
-        //     "/admin",
-        //     "Could not create store",
-        // );
+        return encodedRedirect(
+            "error",
+            "/admin/create-store",
+            "Could not create store",
+        );
     }
     
-    return  // encodedRedirect(
-    //     "success",
-    //     "/admin",
-    //     "Store created",
-    // );
+    return redirect("/admin");
 }
 
 export const GetStoreFromUser = async (): Promise<Store | null> => {

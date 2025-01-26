@@ -36,28 +36,6 @@ export const signUpAction = async (formData: FormData) => {
     console.error(error.code + " " + error.message);
     return encodedRedirect("error", "/sign-up", error.message);
   } else {
-    const user = await supabase.auth.getUser();
-    const userId = user.data.user?.id;
-
-    if (!userId) {
-      return encodedRedirect(
-        "error",
-        "/sign-up",
-        "Could not create user",
-      );
-    }
-
-    const { data, error } = await CreateUser(userId, fullName);
-
-    if (error) {
-      console.error(error);
-      return encodedRedirect(
-        "error",
-        "/sign-up",
-        "Could not create user",
-      );
-    }
-
     return encodedRedirect(
       "success",
       "/sign-up",
