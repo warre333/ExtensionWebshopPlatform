@@ -57,6 +57,8 @@ export const GetOrdersFromStore = async (store_id: string): Promise<OrderWithCus
         console.error(error.message);
         return [];
     }
-
-    return data as unknown as OrderWithCustomer[]; // 😭 Customer type is an array type but isn't?
+    return data.map((order) => ({
+        ...order,
+        customer: Array.isArray(order.customer) ? order.customer[0] : order.customer
+    })) as OrderWithCustomer[];
 }
