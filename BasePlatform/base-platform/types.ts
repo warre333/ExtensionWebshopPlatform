@@ -29,3 +29,12 @@ export interface CustomerWithAddress extends Customer {
 export interface OrderWithCustomer extends Order {
     customer: Customer
 }
+
+export interface Product {
+    id: number,
+    name: string,
+    description: string,
+    price: {
+        amount: number
+    }
+}

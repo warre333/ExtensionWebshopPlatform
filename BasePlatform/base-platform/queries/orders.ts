@@ -51,8 +51,6 @@ export const GetOrdersFromStore = async (store_id: string): Promise<OrderWithCus
             status   
         `)
         .eq("store_id", store_id);
-
-        console.log(data)
     if (error) {
         console.error(error.message);
         return [];
