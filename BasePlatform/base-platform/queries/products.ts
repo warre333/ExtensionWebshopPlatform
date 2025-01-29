@@ -58,3 +58,22 @@ export const GetProductsFromStore = async (store_id: string): Promise<Product[]>
         price: Array.isArray(product.price) ? product.price[0] : product.price
     })) as Product[];
 }
+
+export const GetProductById = async (productId: string): Promise<Product | null> => {
+    const supabase = await createClient();
+    const { data, error } = await supabase.from("products").select(`
+        id,
+        name,
+        description,
+        price:prices (
+            amount
+        )
+    `).eq("id", productId);
+    
+    if (error) {
+        console.error(error.message);
+        return null;
+    }    
+    
+    return Array.isArray(data[0].price) ? { ...data[0], price: { amount: (data[0].price[0] as { amount: number }).amount }} : { ...data[0], price: { amount: (data[0].price as { amount: number }).amount }};
+}
