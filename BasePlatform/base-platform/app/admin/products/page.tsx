@@ -35,7 +35,7 @@ export default async function DashboardPage() {
                 </th>
                 <th scope="col" className="px-6 py-3 text-right text-gray-500 uppercase tracking-wider">
                   <Button size={"sm"}>
-                    <Link href="/admin/orders/create" className="uppercase text-xs font-medium">Create order</Link>
+                    <Link href="/admin/products/create" className="uppercase text-xs font-medium">Create product</Link>
                   </Button>
                 </th>
               </tr>

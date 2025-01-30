@@ -14,10 +14,25 @@ export const CreateProduct = async (formData: FormData) => {
         {
             name: formData.get("name"),
             description: formData.get("description"),
-            price: formData.get("price"),
             store_id: store?.id,
         }
-    ]);
+    ]).select("id").single();
+    console.log(data, error)
+
+    if (data) {
+        const { error: priceInsertError } = await supabase.from("prices").insert({
+            product_id: data.id,
+            amount: Number(formData.get("price")) * 100,
+        });
+
+        if (priceInsertError) {
+            return encodedRedirect(
+                "error",
+                "/admin/products/create",
+                "Could not create product price",
+            );
+        }
+    }
 
     if (error) {
         return encodedRedirect(
@@ -30,7 +45,7 @@ export const CreateProduct = async (formData: FormData) => {
     return encodedRedirect(
         "success",
         "/admin/products",
-        "Order created",
+        "Product created",
     );
 }
 
