@@ -40,11 +40,9 @@ export function FormMessage({ message, size = "medium" }: { message?: Message; s
       message = { success: searchParams.get("success") as string };
     else if (searchParams.get("message"))
       message = { message: searchParams.get("message") as string };
-    else
-      message = { message: "" };
   }
 
-  return (
+  return message !== undefined && (
     <div className="flex flex-col gap-2 w-full max-w-md text-sm">
       {"success" in message && (
         <div className={messageVariants({ type: "success", size })}>
