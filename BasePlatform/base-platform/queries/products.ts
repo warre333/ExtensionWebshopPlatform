@@ -20,7 +20,6 @@ export const CreateProduct = async (formData: FormData) => {
     ]);
 
     if (error) {
-        console.error(error.message);
         return encodedRedirect(
             "error",
             "/admin/products/create",
@@ -47,9 +46,9 @@ export const GetProductsFromStore = async (store_id: string): Promise<Product[]>
                 amount
             )
         `)
-        .eq("store_id", store_id);
+        .eq("store_id", store_id)
+        .eq("prices.active", true);
     if (error) {
-        console.error(error.message);
         return [];
     }
     
@@ -61,19 +60,93 @@ export const GetProductsFromStore = async (store_id: string): Promise<Product[]>
 
 export const GetProductById = async (productId: string): Promise<Product | null> => {
     const supabase = await createClient();
-    const { data, error } = await supabase.from("products").select(`
-        id,
-        name,
-        description,
-        price:prices (
-            amount
-        )
-    `).eq("id", productId);
+    const { data, error } = await supabase.from("products")
+        .select(`
+            id,
+            name,
+            description,
+            price:prices (
+                amount
+            )
+        `)
+        .eq("id", productId)
+        .eq("prices.active", true);
     
     if (error) {
-        console.error(error.message);
         return null;
     }    
     
     return Array.isArray(data[0].price) ? { ...data[0], price: { amount: (data[0].price[0] as { amount: number }).amount }} : { ...data[0], price: { amount: (data[0].price as { amount: number }).amount }};
+}
+
+export const UpdateProduct = async (product: Product) => {
+    const supabase = await createClient();
+
+    const { data: existingPrice, error: existingPriceError } = await supabase
+        .from("prices")
+        .select("amount")
+        .eq("product_id", product.id)
+        .eq("active", true)
+        .single();
+
+    if (existingPriceError) {
+        return encodedRedirect(
+            "error",
+            `/admin/products/${product.id}`,
+            "Could not fetch existing price",
+        );
+    }
+
+    if (existingPrice.amount !== product.price.amount) {
+        const now = new Date().toISOString();
+        const { error: priceUpdateError } = await supabase.from("prices").update({
+            end_date: now,
+            active: false,
+        }).eq("product_id", product.id).eq("active", true);
+
+        if (priceUpdateError) {
+            return encodedRedirect(
+                "error",
+                `/admin/products/${product.id}`,
+                "Could not update previous price",
+            );
+        }
+
+        const { error: priceInsertError } = await supabase.from("prices").insert({
+            product_id: product.id,
+            amount: product.price.amount
+        });
+
+        if (priceInsertError) {            
+            await supabase.from("prices").update({
+                end_date: new Date(new Date().setFullYear(9999)).toISOString(),
+                active: true,
+            }).eq("product_id", product.id).eq("end_date", now);
+
+            return encodedRedirect(
+                "error",
+                `/admin/products/${product.id}`,
+                "Could not insert new price",
+            );
+        }
+    }
+
+    const { error: productUpdateError } = await supabase.from("products").update({
+        name: product.name,
+        description: product.description,
+    }).eq("id", product.id);
+
+    if (productUpdateError) {
+        return encodedRedirect(
+            "error",
+            `/admin/products/${product.id}`,
+            "Could not update product",
+        );
+    }
+
+    return encodedRedirect(
+        "success",
+        "/admin/products",
+        "Product updated",
+    );
 }
