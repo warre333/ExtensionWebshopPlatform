@@ -1,3 +1,4 @@
+import { FormMessage } from "@/components/form-message";
 import { Button } from "@/components/ui/button";
 import { GetUserAndStore } from "@/lib/functions";
 import { GetOrdersFromStore } from "@/queries/orders";
@@ -18,6 +19,7 @@ export default async function DashboardPage() {
         <h1 className="text-3xl font-medium">Products</h1>
       </div>
       <div className="flex flex-col gap-8">
+        <FormMessage />
         <div className="flex flex-col gap-4">
           <table className="min-w-full divide-y divide-gray-200 border border-gray-200">
             <thead className="bg-gray-100">
