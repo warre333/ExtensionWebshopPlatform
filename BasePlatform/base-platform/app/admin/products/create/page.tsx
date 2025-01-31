@@ -1,6 +1,5 @@
-import { FormMessage } from "@/components/form-message";
 import { SubmitButton } from "@/components/submit-button";
-import { Button } from "@/components/ui/button";
+import { ToastNotification } from "@/components/toast";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { GetUserAndStore } from "@/lib/functions";
@@ -15,7 +14,7 @@ export default async function CreateProductPage() {
         <h1 className="text-3xl font-medium">Create a new product</h1>
       </div>
       <div className="flex flex-col gap-8">
-        <FormMessage />
+        <ToastNotification />
         <div className="flex flex-col gap-4 w-full max-w-lg">
           <form className="flex flex-col gap-4">
             <div>

@@ -1,18 +1,14 @@
-import { FormMessage, Message } from "@/components/form-message";
 import { SubmitButton } from "@/components/submit-button";
+import { ToastNotification } from "@/components/toast";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { GetOrdersFromStore } from "@/queries/orders";
 import { CreateStore, GetStoreFromUser } from "@/queries/stores";
 import { CreateUser, GetUser } from "@/queries/users";
 import { createClient } from "@/utils/supabase/server";
 import { encodedRedirect } from "@/utils/utils";
 import { redirect } from "next/navigation";
 
-export default async function CreateStorePage(props: {
-  searchParams: Promise<Message>;
-}) {
-  const searchParams = await props.searchParams;
+export default async function CreateStorePage() {
   const supabase = await createClient();
 
   const {
@@ -56,7 +52,7 @@ export default async function CreateStorePage(props: {
           <SubmitButton formAction={CreateStore} pendingText="creating...">
              Create
           </SubmitButton>
-          <FormMessage message={searchParams} />
+          <ToastNotification />
         </div>
       </form>
     </div>

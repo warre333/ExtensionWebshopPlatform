@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { useSearchParams } from "next/navigation";
-import { FormMessage } from "./form-message";
+import { ToastNotification } from "./toast";
 
 export const ProductDashboard = ({
     product,
@@ -34,7 +34,7 @@ export const ProductDashboard = ({
 
     return (
         <div className="flex-1 w-full flex flex-col gap-4">
-            { searchParams.get("error") && (<FormMessage message={{ error: searchParams.get("error") as string }} size="large" /> )}
+            <ToastNotification/> 
             <div className="flex items-center gap-4">
                 <h1 className="text-3xl font-medium">{product.name}</h1>
             </div>
