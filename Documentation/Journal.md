@@ -1,4 +1,6 @@
-30/01: The user can now edit the product on the specific product page.
+01/02: The user can now delete a product from the specific product page.
+31/01: I seperated the tabel component for easier reusage. Added toast notifications for success and error messages.
+30/01: The user can now edit the product on the specific product page. 
 29/01: Worked on the specific product page. The user can now see the details of a product.
 28/01: Created a different group for dashboard pages that don't require the side menu. Started on the products page.
 27/01: Created the side menu for the dashboard. The user can now navigate between the different screens of the dashboard.

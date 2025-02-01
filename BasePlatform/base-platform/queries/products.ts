@@ -62,7 +62,8 @@ export const GetProductsFromStore = async (store_id: string): Promise<Product[]>
             )
         `)
         .eq("store_id", store_id)
-        .eq("prices.active", true);
+        .eq("prices.active", true)
+        .eq("archived", false);
     if (error) {
         return [];
     }
@@ -163,5 +164,27 @@ export const UpdateProduct = async (product: Product) => {
         "success",
         "/admin/products",
         "Product updated",
+    );
+}
+
+export const DeleteProduct = async (productId: number) => {
+    const supabase = await createClient();
+
+    const { error: productDeleteError } = await supabase.from("products").update({
+        archived: true,
+    }).eq("id", productId);
+
+    if (productDeleteError) {
+        return encodedRedirect(
+            "error",
+            "/admin/products",
+            "Could not archive product",
+        );
+    }
+
+    return encodedRedirect(
+        "success",
+        "/admin/products",
+        "Product archived",
     );
 }
