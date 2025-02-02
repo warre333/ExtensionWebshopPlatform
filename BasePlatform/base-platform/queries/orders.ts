@@ -21,7 +21,6 @@ export const CreateOrder = async (formData: FormData) => {
     ]);
 
     if (error) {
-        console.error(error.message);
         return encodedRedirect(
             "error",
             "/admin",
@@ -52,11 +51,35 @@ export const GetOrdersFromStore = async (store_id: string): Promise<OrderWithCus
         `)
         .eq("store_id", store_id);
     if (error) {
-        console.error(error.message);
         return [];
     }
     return data.map((order) => ({
         ...order,
         customer: Array.isArray(order.customer) ? order.customer[0] : order.customer
     })) as OrderWithCustomer[];
+}
+
+export const GetOrderById = async (order_id: number): Promise<OrderWithCustomer> => {
+    const supabase = await createClient();
+    const { data, error } = await supabase
+        .from("orders")
+        .select(`
+            id,
+            customer:customers (
+                id,
+                name,
+                email
+            ),
+            order_date,
+            status   
+        `)
+        .eq("id", order_id);
+    if (error) {
+        console.error(error.message);
+        return {} as OrderWithCustomer;
+    }
+    return data.map((order) => ({
+        ...order,
+        customer: Array.isArray(order.customer) ? order.customer[0] : order.customer
+    }))[0] as OrderWithCustomer;
 }
