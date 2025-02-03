@@ -30,6 +30,19 @@ export interface OrderWithCustomer extends Order {
     customer: Customer
 }
 
+export interface OrderItem {
+    id: number,
+    name: string,
+    quantity: number,
+    price: number
+}
+
+export interface FullOrder extends Order {
+    customer: CustomerWithAddress
+    items: OrderItem[]
+    total: number
+}
+
 export interface Product {
     id: number,
     name: string,

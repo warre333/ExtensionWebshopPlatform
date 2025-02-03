@@ -1,5 +1,5 @@
 "use server";
-import { OrderWithCustomer } from "@/types";
+import { FullOrder, OrderWithCustomer } from "@/types";
 import { createClient } from "@/utils/supabase/server";
 import { encodedRedirect } from "@/utils/utils";
 
@@ -59,7 +59,7 @@ export const GetOrdersFromStore = async (store_id: string): Promise<OrderWithCus
     })) as OrderWithCustomer[];
 }
 
-export const GetOrderById = async (order_id: number): Promise<OrderWithCustomer> => {
+export const GetOrderById = async (order_id: number): Promise<FullOrder> => {
     const supabase = await createClient();
     const { data, error } = await supabase
         .from("orders")
@@ -68,18 +68,42 @@ export const GetOrderById = async (order_id: number): Promise<OrderWithCustomer>
             customer:customers (
                 id,
                 name,
-                email
+                email,
+                shipping_address,
+                billing_address
             ),
             order_date,
-            status   
+            status,
+            items:ordered_products (
+                id:product_id,
+                quantity:amount,
+                price:prices (
+                    amount
+                ),
+                product:products (
+                    name
+                )
+            )
         `)
         .eq("id", order_id);
     if (error) {
-        console.error(error.message);
-        return {} as OrderWithCustomer;
+        return {} as FullOrder;
     }
-    return data.map((order) => ({
-        ...order,
-        customer: Array.isArray(order.customer) ? order.customer[0] : order.customer
-    }))[0] as OrderWithCustomer;
+
+    const total = data[0].items.reduce((acc: number, item: any) => {
+        return acc + item.quantity * item.price.amount;
+    }, 0);
+    const formattedItems = data[0].items.map((item: any) => ({
+        id: item.id,
+        name: Array.isArray(item.product) ? item.product[0].name : item.product.name,
+        quantity: item.quantity,
+        price: Array.isArray(item.price) ? item.price[0].amount : item.price.amount,
+    }));
+
+    return {
+        ...data[0],
+        customer: Array.isArray(data[0].customer) ? data[0].customer[0] : data[0].customer,
+        items: formattedItems,
+        total,
+    };
 }
