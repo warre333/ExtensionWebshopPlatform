@@ -7,24 +7,60 @@ export const CreateOrder = async (formData: FormData) => {
     const supabase = await createClient();
     const user = await supabase.auth.getUser();
     const userId = user.data.user?.id;
+
+    const { data: maxOrderNumberData, error: maxOrderNumberError } = await supabase
+        .from("orders")
+        .select("order_number")
+        .eq("store_id", formData.get("store_id"))
+        .order("order_number", { ascending: false })
+        .limit(1);
+
+    if (maxOrderNumberError) {
+        return encodedRedirect(
+            "error",
+            "/admin",
+            "Could not retrieve the highest order number",
+        );
+    }
+
+    const highestOrderNumber = maxOrderNumberData.length > 0 ? maxOrderNumberData[0].order_number : 0;
+    const newOrderNumber = highestOrderNumber + 1;
     
     const {
         data,
         error,
     } = await supabase.from("orders").insert([
         {
-            user_id: userId,
             store_id: formData.get("store_id"),
-            total: formData.get("total"),
-            status: formData.get("status"),
+            order_number: newOrderNumber,
+            customer_id: userId,
         }
-    ]);
+    ]).select("id");
 
     if (error) {
         return encodedRedirect(
             "error",
             "/admin",
             "Could not create order",
+        );
+    }
+
+    const orderedItems = JSON.parse(formData.get("ordered_items") as string);
+
+    const { error: orderedItemsError } = await supabase.from("ordered_products").insert(
+        orderedItems.map((item: any) => ({
+            order_id: data[0].id,
+            product_id: item.product_id,
+            amount: item.quantity,
+            price_id: item.price_id,
+        }))
+    );
+
+    if (orderedItemsError) {
+        return encodedRedirect(
+            "error",
+            "/admin",
+            "Could not insert ordered items",
         );
     }
 
@@ -59,12 +95,13 @@ export const GetOrdersFromStore = async (store_id: string): Promise<OrderWithCus
     })) as OrderWithCustomer[];
 }
 
-export const GetOrderById = async (order_id: number): Promise<FullOrder> => {
+export const GetOrderByOrderNumber = async (order_number: number): Promise<FullOrder> => {
     const supabase = await createClient();
     const { data, error } = await supabase
         .from("orders")
         .select(`
             id,
+            order_number,
             customer:customers (
                 id,
                 name,
@@ -85,10 +122,9 @@ export const GetOrderById = async (order_id: number): Promise<FullOrder> => {
                 )
             )
         `)
-        .eq("id", order_id);
-    if (error) {
-        return {} as FullOrder;
-    }
+        .eq("order_number", order_number)
+    if (error) return {} as FullOrder;
+    if (data.length === 0) return {} as FullOrder;
 
     const total = data[0].items.reduce((acc: number, item: any) => {
         return acc + item.quantity * item.price.amount;

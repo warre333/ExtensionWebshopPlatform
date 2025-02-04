@@ -1,3 +1,6 @@
+04/02: Changed the quering of the orders to use an order number instead of the id.
+03/02: Created the order page. The user can now see the details of an order.
+02/02: Created the orders page. Uses the same table from the "dashboard home".
 01/02: The user can now delete a product from the specific product page.
 31/01: I seperated the tabel component for easier reusage. Added toast notifications for success and error messages.
 30/01: The user can now edit the product on the specific product page. 

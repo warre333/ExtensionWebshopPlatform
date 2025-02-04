@@ -11,6 +11,7 @@ export interface Store {
 
 export interface Order {
     id: number,
+    order_number: number,
     order_date: string,
     status: string
 }
