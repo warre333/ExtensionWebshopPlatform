@@ -7,18 +7,18 @@ import { Button } from "../ui/button"
 import { DeleteProduct } from "@/queries/products"
 
 export function OrdersTable({ rows }: { rows: OrderWithCustomer[]}) {
-  const colHeader = [ "Order ID", "Customer name", "Order date", "Status" ]
+  const colHeader = [ "Order Number", "Customer name", "Order date", "Status" ]
 
   return (
     <BaseTable colHeader={colHeader} >
       {rows.map((item, key) => (
         <tr key={key}>
-          <td className={`${Column()} font-medium text-gray-900`}>{item.id}</td>
+          <td className={`${Column()} font-medium text-gray-900`}>#{item.order_number}</td>
           <td className={`${Column()}`}>{item.customer.name}</td> 
           <td className={`${Column()}`}>{new Date(item.order_date).toLocaleString()}</td>
           <td className={`${Column()}`}>{item.status}</td>
           <td className={`${Column()}`}>
-            <a href={`/admin/orders/${item.id}`} className="text-blue-500 hover:text-blue-700">View order</a>
+            <a href={`/admin/orders/${item.order_number}`} className="text-blue-500 hover:text-blue-700">View order</a>
           </td>
         </tr>  
       ))}    

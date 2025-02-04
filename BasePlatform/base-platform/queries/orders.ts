@@ -77,6 +77,7 @@ export const GetOrdersFromStore = async (store_id: string): Promise<OrderWithCus
         .from("orders")
         .select(`
             id,
+            order_number,
             customer:customers (
                 id,
                 name,
