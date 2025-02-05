@@ -1,3 +1,4 @@
+05/02: The option to edit the order status.
 04/02: Changed the quering of the orders to use an order number instead of the id.
 03/02: Created the order page. The user can now see the details of an order.
 02/02: Created the orders page. Uses the same table from the "dashboard home".

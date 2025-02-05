@@ -144,3 +144,30 @@ export const GetOrderByOrderNumber = async (order_number: number): Promise<FullO
         total,
     };
 }
+
+export const UpdateOrderStatus = async (order_id: number, order_number: number, status: string) => {
+    if (!["pending", "processing", "shipped", "delivered"].includes(status.toLocaleLowerCase())) return encodedRedirect(
+        "error",
+        "/admin",
+        "Invalid order status",
+    );
+
+    const supabase = await createClient();
+    const { error } = await supabase
+        .from("orders")
+        .update({ status: status.toLocaleLowerCase() })
+        .eq("id", order_id);
+        
+    if (error) {
+        return encodedRedirect(
+            "error",
+            `/admin/orders/${order_number}`,
+            "Could not update order status",
+        );
+    }
+    return encodedRedirect(
+        "success",
+        `/admin/orders/${order_number}`,
+        "Order status updated",
+    );
+}

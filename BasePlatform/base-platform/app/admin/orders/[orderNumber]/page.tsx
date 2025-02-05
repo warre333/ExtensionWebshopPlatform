@@ -1,7 +1,7 @@
 import { FormMessage } from "@/components/form-message";
+import { StatusDropdown } from "@/components/status-dropdown";
 import { OrderedProductsTable } from "@/components/tables/ordered-products";
 import { ToastNotification } from "@/components/toast";
-import { Button } from "@/components/ui/button";
 import { GetUserAndStore } from "@/lib/functions";
 import { GetOrderByOrderNumber } from "@/queries/orders";
 import Link from "next/link";
@@ -28,7 +28,7 @@ export default async function OrderDashboardPage({
             className={`text-sm font-medium mr-2 px-3 py-1 rounded-full ${
               order.status === "pending"
                 ? "bg-yellow-200 text-yellow-800"
-                : order.status === "delivered"
+                : order.status === "delivered" || order.status === "shipped"
                 ? "bg-green-200 text-green-800"
                 : "bg-blue-200 text-blue-800"
             }`}
@@ -37,9 +37,7 @@ export default async function OrderDashboardPage({
           </span>
         </div>
         <div className="flex flex-row items-center gap-6">
-          {order.status === "pending" && (
-            <Button>Mark as Delivered</Button>
-          )}
+          <StatusDropdown orderId={order.id} orderNumber={order.order_number} />
         </div>
       </div>
       <div className="flex flex-col gap-8">
