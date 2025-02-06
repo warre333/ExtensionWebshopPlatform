@@ -8,7 +8,7 @@ export const StatusDropdown = ({ orderId, orderNumber }: { orderId: number, orde
     return (
         <DropdownMenu>
             <DropdownMenuTrigger>
-              <Button>Change Status</Button>
+              Change Status
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuItem onClick={() => UpdateOrderStatus(orderId, orderNumber, 'pending')}>
