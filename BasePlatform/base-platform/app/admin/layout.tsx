@@ -20,8 +20,8 @@ export default async function Layout({
         </nav>
         <div className="flex h-[calc(100vh-64px)] w-full"> 
           <SideNav />
-          <div className="flex-1 overflow-y-auto p-5 h-full">
-            <div className="container mx-auto p-6">
+          <div className="flex-1 overflow-y-auto p-5 pl-0 lg:pl-5 h-full">
+            <div className="container mx-auto p-6 pl-0 lg:pl-6">
               <div className="flex flex-col gap-12 items-start">
           {children}
               </div>

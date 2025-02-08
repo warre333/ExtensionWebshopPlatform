@@ -23,18 +23,20 @@ export default async function OrderDashboardPage({
           <Link href="/admin/orders">
             <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="w-6 h-6" ><g id="SVGRepo_bgCarrier" strokeWidth="0"></g> <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g> <g id="SVGRepo_iconCarrier"> <polyline points="244 400 100 256 244 112" style={{ fill: "none", stroke: "currentColor", strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "48px", }} ></polyline><line x1="120" y1="256" x2="412" y2="256" style={{ fill: "none", stroke: "currentColor", strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "48px"}} ></line></g></svg>
           </Link>
-          <h1 className="text-3xl font-medium">Order #{order.order_number}</h1>
-          <span
-            className={`text-sm font-medium mr-2 px-3 py-1 rounded-full ${
-              order.status === "pending"
-                ? "bg-yellow-200 text-yellow-800"
-                : order.status === "delivered" || order.status === "shipped"
-                ? "bg-green-200 text-green-800"
-                : "bg-blue-200 text-blue-800"
-            }`}
-          >
-            {order.status}
-          </span>
+          <div className="flex flex-col-reverse lg:flex-row items-start lg:items-center gap-1 lg:gap-6">
+            <h1 className="text-2xl lg:text-3xl font-medium text-nowrap text-left">Order #{order.order_number}</h1>
+            <span
+              className={`text-sm font-medium mr-2 px-3 py-1 rounded-full ${
+                order.status === "pending"
+                  ? "bg-yellow-200 text-yellow-800"
+                  : order.status === "delivered" || order.status === "shipped"
+                  ? "bg-green-200 text-green-800"
+                  : "bg-blue-200 text-blue-800"
+              }`}
+            >
+              {order.status}
+            </span>
+          </div>
         </div>
         <div className="flex flex-row items-center gap-6">
           <StatusDropdown orderId={order.id} orderNumber={order.order_number} />
@@ -42,7 +44,7 @@ export default async function OrderDashboardPage({
       </div>
       <div className="flex flex-col gap-8">
         <ToastNotification />        
-        <div className="flex flex-row gap-6">
+        <div className="flex flex-col lg:flex-row gap-6">
           {/* Items */}
           <div className="w-full">
             <OrderedProductsTable rows={order.items} />
