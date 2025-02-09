@@ -1,4 +1,5 @@
-08/02: Continued with making the application responsive
+09/02: Continued with making the application responsive.
+08/02: Continued with making the application responsive.
 07/02: Started with making the current application responsive, I started with the Mobile side menu.
 06/02: Changed the dropdownmenu trigger to have the styling of a button.
 05/02: The option to edit the order status.
