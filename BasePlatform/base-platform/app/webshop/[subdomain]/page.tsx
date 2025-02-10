@@ -1,16 +1,26 @@
-// app/store/[subdomain]/page.tsx
-interface PageProps {
-    params: { subdomain: string };
-  }
+import { WebshopRender } from "@/components/webshop/webshop-render";
+import { parseTemplate } from "@/lib/templateParser";
+
+export default async function StorePage({ params }: { params: { subdomain: string }}) {
+  const { subdomain } = await params;
+
   
-  export default function StorePage({ params }: PageProps) {
-    const { subdomain } = params;
-  
-    return (
-      <div>
-        <h1>Store for: {subdomain}</h1>
-        <p>This is the store page for the "{subdomain}" subdomain.</p>
-      </div>
-    );
-  }
+
+  const content = await parseTemplate("test", "index", {
+    storeName: subdomain,
+    storeDescription: "This is my store description",
+    products: [
+      {
+        name: "Product 1",
+        price: 100,
+      },
+      {
+        name: "Product 2",
+        price: 200,
+      },
+    ],
+  });
+
+  return <WebshopRender content={content} />;
+}
   

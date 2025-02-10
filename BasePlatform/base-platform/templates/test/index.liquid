@@ -1,0 +1,10 @@
+<h1>{{ storeName }}</h1>
+<p>{{ storeDescription }}</p>
+<h2>Products</h2>
+<ul>
+    {% for product in products %}
+        <li>
+            <strong>{{ product.name }}</strong>: ${{ product.price }}
+        </li>
+    {% endfor %}
+</ul>
