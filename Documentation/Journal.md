@@ -1,3 +1,4 @@
+10/02: Started on the webshop subdomain. Subdomains are now the webshops which rewrites to /webshop/[webshopname] and this path redirects to the subdomain to show the webshop on the subdomain.
 09/02: Continued with making the application responsive.
 08/02: Continued with making the application responsive.
 07/02: Started with making the current application responsive, I started with the Mobile side menu.
