@@ -1,10 +1,16 @@
-<h1>{{ storeName }}</h1>
-<p>{{ storeDescription }}</p>
-<h2>Products</h2>
-<ul>
-    {% for product in products %}
-        <li>
-            <strong>{{ product.name }}</strong>: ${{ product.price }}
-        </li>
-    {% endfor %}
-</ul>
+<head>
+    <title>{{ storeName }}</title>
+</head>
+
+<body>
+        <h1 class="font-bold bg-blue-400 text-2xl">{{ storeName }}</h1>
+    <p class="bg-red-500 text-xl">{{ storeDescription }}</p>
+    <h2 class="bg-green-600">Products</h2>
+    <ul>
+        {% for product in products %}
+            <li>
+                <strong>{{ product.name }}</strong>: ${{ product.price }}
+            </li>
+        {% endfor %}
+    </ul>
+</body>

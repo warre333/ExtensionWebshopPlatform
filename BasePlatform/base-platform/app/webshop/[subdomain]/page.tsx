@@ -1,10 +1,8 @@
-import { WebshopRender } from "@/components/webshop/webshop-render";
 import { parseTemplate } from "@/lib/templateParser";
+import parse from "html-react-parser";
 
 export default async function StorePage({ params }: { params: { subdomain: string }}) {
   const { subdomain } = await params;
-
-  
 
   const content = await parseTemplate("test", "index", {
     storeName: subdomain,
@@ -21,6 +19,10 @@ export default async function StorePage({ params }: { params: { subdomain: strin
     ],
   });
 
-  return <WebshopRender content={content} />;
+  return (
+    <>
+      {parse(content)}
+    </>
+  );
 }
   

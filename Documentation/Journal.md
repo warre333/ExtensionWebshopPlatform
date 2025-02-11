@@ -1,3 +1,4 @@
+11/02: Tailwind configuration for liquid templates.
 10/02: Started on the webshop page. Webshops are shown on a subdomain with their slug. This will render a default liquid template.
 09/02: Continued with making the application responsive.
 08/02: Continued with making the application responsive.
