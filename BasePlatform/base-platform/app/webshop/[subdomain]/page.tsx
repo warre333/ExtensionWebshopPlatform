@@ -1,5 +1,6 @@
 import { parseTemplate } from "@/lib/templateParser";
 import parse from "html-react-parser";
+import React from "react";
 
 export default async function StorePage({ params }: { params: { subdomain: string }}) {
   const { subdomain } = await params;
@@ -20,9 +21,9 @@ export default async function StorePage({ params }: { params: { subdomain: strin
   });
 
   return (
-    <>
-      {parse(content)}
-    </>
+    <React.Fragment>
+      {parse(content.toString().trim().replace(/>\s+</g, '><'))}
+    </React.Fragment>
   );
 }
   
