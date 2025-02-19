@@ -48,3 +48,15 @@ export const GetStoreFromUser = async (): Promise<Store | null> => {
     
     return data[0];
 }
+
+export const GetStoreBySlug = async (slug: string): Promise<Partial<Store> | null> => {
+    const supabase = await createClient();
+    
+    const { data, error } = await supabase.from("stores").select("id, name, slug").eq("slug", slug);
+
+    if (error) {
+        return null;
+    }
+    
+    return data[0];
+}
