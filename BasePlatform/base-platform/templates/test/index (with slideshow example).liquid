@@ -1,0 +1,119 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ storeName }}</title>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          (function() {
+              // Select the carousel container (assumes the first element with the transition-transform class)
+              const carousel = document.querySelector('#carousel');
+              console.log(carousel)
+              if (!carousel) return;
+              const slides = carousel.children;
+              const totalSlides = slides.length;
+              let currentIndex = 0;
+              
+              function updateSlide() {
+                  carousel.style.transform = 'translateX(-' + (currentIndex * 100) + '%)';
+              }
+              
+              document.getElementById('prev-btn').addEventListener('click', function() {
+                  currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+                  updateSlide();
+              });
+              
+              document.getElementById('next-btn').addEventListener('click', function() {
+                  currentIndex = (currentIndex + 1) % totalSlides;
+                  updateSlide();
+              });
+          })();
+      });
+    </script>
+</head>
+<body class="bg-gray-50">
+
+    <header class="text-center my-8">
+        <h1 class="text-4xl font-bold">{{ storeName }}</h1>
+        <p class="mt-4 text-lg text-gray-600">Discover exclusive products and exceptional deals at our store. Enjoy a seamless shopping experience!</p>
+    </header>
+
+    <!-- Carousel Section -->
+    <section class="mb-12">
+        <div class="relative">
+            <!-- Replace this static slider with a dynamic carousel if needed -->
+            <div class="overflow-hidden">
+                <div id="carousel" class="h-64 md:h-96 flex transition-transform duration-500" style="transform: translateX(0%);">
+                    <!-- Slide 1 -->
+                    <div class="min-w-full flex-shrink-0 relative">
+                        <img src="https://placehold.co/1200x400?text=Featured+Product+1" alt="Featured Product 1" class="w-full h-full object-cover">
+                        <div class="absolute bottom-0 left-0 w-full bg-black bg-opacity-50 p-4 text-white">
+                            <h5 class="text-xl font-semibold">Featured Product 1</h5>
+                            <p>Top quality and trendy.</p>
+                        </div>
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="min-w-full flex-shrink-0 relative">
+                        <img src="https://placehold.co/1200x400?text=Featured+Product+2" alt="Featured Product 2" class="w-full h-full object-cover">
+                        <div class="absolute bottom-0 left-0 w-full bg-black bg-opacity-50 p-4 text-white">
+                            <h5 class="text-xl font-semibold">Featured Product 2</h5>
+                            <p>Exclusive offer available now.</p>
+                        </div>
+                    </div>
+                    <!-- Slide 3 -->
+                    <div class="min-w-full flex-shrink-0 relative">
+                        <img src="https://placehold.co/1200x400?text=Featured+Product+3" alt="Featured Product 3" class="w-full h-full object-cover">
+                        <div class="absolute bottom-0 left-0 w-full bg-black bg-opacity-50 p-4 text-white">
+                            <h5 class="text-xl font-semibold">Featured Product 3</h5>
+                            <p>New arrival trending this season.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <!-- Navigation buttons -->
+            <button id="prev-btn" class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white bg-opacity-50 p-2 rounded-full hover:bg-opacity-75">
+                Prev
+            </button>
+            <button id="next-btn" class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white bg-opacity-50 p-2 rounded-full hover:bg-opacity-75">
+                Next
+            </button>
+        </div>
+    </section>
+
+    <!-- Popular Products Section -->
+    <section class="my-12">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl font-semibold text-center mb-8">Popular Products</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                <div class="bg-white shadow rounded overflow-hidden">
+                    <img src="https://placehold.co/350x200?text=Product+A" alt="Product A" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h5 class="text-xl font-semibold">Product A</h5>
+                        <p class="mt-2 text-gray-600">A brief description of Product A highlighting its unique features.</p>
+                        <a href="#" class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Shop Now</a>
+                    </div>
+                </div>
+                <div class="bg-white shadow rounded overflow-hidden">
+                    <img src="https://placehold.co/350x200?text=Product+B" alt="Product B" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h5 class="text-xl font-semibold">Product B</h5>
+                        <p class="mt-2 text-gray-600">Experience the quality and style of Product B.</p>
+                        <a href="#" class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Shop Now</a>
+                    </div>
+                </div>
+                <div class="bg-white shadow rounded overflow-hidden">
+                    <img src="https://placehold.co/350x200?text=Product+C" alt="Product C" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h5 class="text-xl font-semibold">Product C</h5>
+                        <p class="mt-2 text-gray-600">Explore the innovative features of Product C.</p>
+                        <a href="#" class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="text-center py-4 bg-gray-100">
+        <p>&copy; {{ 'now' | date: "%Y" }} {{ storeName }}. All rights reserved.</p>
+    </footer>
+</body>

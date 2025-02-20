@@ -20,12 +20,74 @@ export default async function StorePage({ params }: { params: { subdomain: strin
     products: [
       {
         name: "Product 1",
-        price: 100,
+        price: 1.00,
+        description: "This is a product description",
+        url: "http://test.localhost:3000/product/1",
+        image: "https://placehold.co/1200x400?text=Featured+Product+1"
       },
       {
         name: "Product 2",
-        price: 200,
+        price: 1.00,
+        description: "This is a product description",
+        url: "http://test.localhost:3000/product/1",
+        image: "https://placehold.co/1200x400?text=Featured+Product+2"
       },
+      {
+        name: "Product 3",
+        price: 1.00,
+        description: "This is a product description",
+        url: "http://test.localhost:3000/product/1",
+        image: "https://placehold.co/1200x400?text=Featured+Product+3"
+      }, 
+      {
+        name: "Product 4",
+        price: 1.00,
+        description: "This is a product description",
+        url: "http://test.localhost:3000/product/1",
+        image: "https://placehold.co/1200x400?text=Featured+Product+4"
+      },
+      {
+        name: "Product 5",
+        price: 1.00,
+        description: "This is a product description",
+        url: "http://test.localhost:3000/product/1",
+        image: "https://placehold.co/1200x400?text=Featured+Product+5"
+      },
+      {
+        name: "Product 6",
+        price: 1.00,
+        description: "This is a product description",
+        url: "http://test.localhost:3000/product/1",
+        image: "https://placehold.co/1200x400?text=Featured+Product+6"
+      },
+      {
+        name: "Product 7",
+        price: 1.00,
+        description: "This is a product description",
+        url: "http://test.localhost:3000/product/1",
+        image: "https://placehold.co/1200x400?text=Featured+Product+7"
+      },
+      {
+        name: "Product 8",
+        price: 1.00,
+        description: "This is a product description",
+        url: "http://test.localhost:3000/product/1",
+        image: "https://placehold.co/1200x400?text=Featured+Product+8"
+      },
+      {
+        name: "Product 9",
+        price: 1.00,
+        description: "This is a product description",
+        url: "http://test.localhost:3000/product/1",
+        image: "https://placehold.co/1200x400?text=Featured+Product+9"
+      },
+      {
+        name: "Product 10",
+        price: 1.00,
+        description: "This is a product description",
+        url: "http://test.localhost:3000/product/1",
+        image: "https://placehold.co/1200x400?text=Featured+Product+10"
+      }
     ],
   });
 
