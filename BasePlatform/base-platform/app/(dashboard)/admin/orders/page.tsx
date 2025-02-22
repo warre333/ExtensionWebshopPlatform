@@ -1,11 +1,10 @@
 import { OrdersTable } from "@/components/tables/orders";
 import { ToastNotification } from "@/components/toast";
-import { GetUserAndStore } from "@/lib/functions";
+import { useAuth } from "@/context/AuthContext";
 import { GetOrdersFromStore } from "@/queries/orders";
 
 export default async function DashboardPage() {
-  const { user, store } = await GetUserAndStore();
-
+  const { store } = useAuth();
   const orders = await GetOrdersFromStore(store.id.toString());
 
   return (    

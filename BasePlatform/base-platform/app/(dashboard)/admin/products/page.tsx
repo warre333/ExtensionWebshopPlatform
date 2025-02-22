@@ -1,15 +1,11 @@
 import { ProductsTable } from "@/components/tables/products";
 import { ToastNotification } from "@/components/toast";
-import { Button } from "@/components/ui/button";
-import { GetUserAndStore } from "@/lib/functions";
+import { useAuth } from "@/context/AuthContext";
 import { GetProductsFromStore } from "@/queries/products";
-import Link from "next/link";
 
 export default async function DashboardPage() {
-  const { user, store } = await GetUserAndStore();
-
+  const { store } = useAuth();
   const products = await GetProductsFromStore(store.id.toString());
-
 
   return (
     <div className="flex-1 w-full flex flex-col gap-4">

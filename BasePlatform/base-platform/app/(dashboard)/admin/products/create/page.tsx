@@ -2,12 +2,9 @@ import { SubmitButton } from "@/components/submit-button";
 import { ToastNotification } from "@/components/toast";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { GetUserAndStore } from "@/lib/functions";
 import { CreateProduct } from "@/queries/products";
 
-export default async function CreateProductPage() {
-  const { user, store } = await GetUserAndStore();
-  
+export default async function CreateProductPage() {  
   return (
     <div className="flex-1 w-full flex flex-col gap-4">
       <div className="flex items-center gap-4">

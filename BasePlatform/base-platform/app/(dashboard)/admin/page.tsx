@@ -1,12 +1,9 @@
 import { OrdersTable } from "@/components/tables/orders";
-import { GetUserAndStore } from "@/lib/functions";
+import { useAuth } from "@/context/AuthContext";
 import { GetOrdersFromStore } from "@/queries/orders";
-import { GetStoreFromUser } from "@/queries/stores";
-import { createClient } from "@/utils/supabase/server";
-import { redirect } from "next/navigation";
 
 export default async function DashboardPage() {
-  const { user, store } = await GetUserAndStore();
+  const { user, store } = useAuth();
 
   const orders = await GetOrdersFromStore(store.id.toString());
 

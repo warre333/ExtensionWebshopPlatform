@@ -2,7 +2,6 @@ import { FormMessage } from "@/components/form-message";
 import { StatusDropdown } from "@/components/status-dropdown";
 import { OrderedProductsTable } from "@/components/tables/ordered-products";
 import { ToastNotification } from "@/components/toast";
-import { GetUserAndStore } from "@/lib/functions";
 import { GetOrderByOrderNumber } from "@/queries/orders";
 import Link from "next/link";
 
@@ -12,8 +11,6 @@ export default async function OrderDashboardPage({
   params: Promise<{ orderNumber: string }>
 }) {
   const orderNumber = (await params).orderNumber;
-
-  await GetUserAndStore();
   const order = await GetOrderByOrderNumber(parseInt(orderNumber));
 
   return Object.keys(order).length !== 0 ? (
