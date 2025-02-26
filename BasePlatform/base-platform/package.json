@@ -3,7 +3,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.0",
@@ -26,13 +28,26 @@
     "react-dom": "19.0.0"
   },
   "devDependencies": {
+    "@chromatic-com/storybook": "^3.2.4",
+    "@storybook/addon-essentials": "^8.6.0",
+    "@storybook/addon-onboarding": "^8.6.0",
+    "@storybook/blocks": "^8.6.0",
+    "@storybook/experimental-addon-test": "^8.6.0",
+    "@storybook/experimental-nextjs-vite": "^8.6.0",
+    "@storybook/react": "^8.6.0",
+    "@storybook/test": "^8.6.0",
     "@types/node": "22.10.2",
     "@types/react": "^19.0.2",
     "@types/react-dom": "19.0.2",
+    "@vitest/browser": "^3.0.7",
+    "@vitest/coverage-v8": "^3.0.7",
+    "playwright": "^1.50.1",
     "postcss": "8.4.49",
+    "storybook": "^8.6.0",
     "tailwind-merge": "^2.5.2",
     "tailwindcss": "3.4.17",
     "tailwindcss-animate": "^1.0.7",
-    "typescript": "5.7.2"
+    "typescript": "5.7.2",
+    "vitest": "^3.0.7"
   }
 }
