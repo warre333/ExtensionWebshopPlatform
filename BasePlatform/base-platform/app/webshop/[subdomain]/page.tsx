@@ -1,4 +1,5 @@
 import { parseTemplate } from "@/lib/templateParser";
+import { GetProductsFromStore } from "@/queries/products";
 import { GetStoreBySlug } from "@/queries/stores";
 import parse from "html-react-parser";
 import { redirect } from "next/navigation";
@@ -11,84 +12,18 @@ export default async function StorePage({ params }: { params: { subdomain: strin
 
   if (!store) {
     redirect("http://localhost:3000");
-    return null;
   }
 
+  const products = await GetProductsFromStore(store.id.toString())
   const content = await parseTemplate("test", "index", {
-    storeName: subdomain,
-    storeDescription: "This is my store description",
-    products: [
-      {
-        name: "Product 1",
-        price: 1.00,
-        description: "This is a product description",
-        url: "http://test.localhost:3000/product/1",
-        image: "https://placehold.co/1200x400?text=Featured+Product+1"
-      },
-      {
-        name: "Product 2",
-        price: 1.00,
-        description: "This is a product description",
-        url: "http://test.localhost:3000/product/1",
-        image: "https://placehold.co/1200x400?text=Featured+Product+2"
-      },
-      {
-        name: "Product 3",
-        price: 1.00,
-        description: "This is a product description",
-        url: "http://test.localhost:3000/product/1",
-        image: "https://placehold.co/1200x400?text=Featured+Product+3"
-      }, 
-      {
-        name: "Product 4",
-        price: 1.00,
-        description: "This is a product description",
-        url: "http://test.localhost:3000/product/1",
-        image: "https://placehold.co/1200x400?text=Featured+Product+4"
-      },
-      {
-        name: "Product 5",
-        price: 1.00,
-        description: "This is a product description",
-        url: "http://test.localhost:3000/product/1",
-        image: "https://placehold.co/1200x400?text=Featured+Product+5"
-      },
-      {
-        name: "Product 6",
-        price: 1.00,
-        description: "This is a product description",
-        url: "http://test.localhost:3000/product/1",
-        image: "https://placehold.co/1200x400?text=Featured+Product+6"
-      },
-      {
-        name: "Product 7",
-        price: 1.00,
-        description: "This is a product description",
-        url: "http://test.localhost:3000/product/1",
-        image: "https://placehold.co/1200x400?text=Featured+Product+7"
-      },
-      {
-        name: "Product 8",
-        price: 1.00,
-        description: "This is a product description",
-        url: "http://test.localhost:3000/product/1",
-        image: "https://placehold.co/1200x400?text=Featured+Product+8"
-      },
-      {
-        name: "Product 9",
-        price: 1.00,
-        description: "This is a product description",
-        url: "http://test.localhost:3000/product/1",
-        image: "https://placehold.co/1200x400?text=Featured+Product+9"
-      },
-      {
-        name: "Product 10",
-        price: 1.00,
-        description: "This is a product description",
-        url: "http://test.localhost:3000/product/1",
-        image: "https://placehold.co/1200x400?text=Featured+Product+10"
-      }
-    ],
+    storeName: store.name,
+    products: products.map((product) => ({
+      name: product.name,
+      description: product.description,
+      price: product.price.amount / 100,
+      image: `https://placehold.co/1600x900?text=${product.name}`,
+      url: `/product/${product.id}`,
+    })),
   });
 
   return (

@@ -1,4 +1,4 @@
-import { GetOrdersFromStore } from "@/queries/orders";
+'use server';
 import { GetStoreFromUser } from "@/queries/stores";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";

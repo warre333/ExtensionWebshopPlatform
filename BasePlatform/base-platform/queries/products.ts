@@ -57,21 +57,25 @@ export const GetProductsFromStore = async (store_id: string): Promise<Product[]>
             id,
             name,
             description,
-            price:prices (
+            prices!prices_product_id_fkey (
                 amount
             )
         `)
         .eq("store_id", store_id)
         .eq("prices.active", true)
         .eq("archived", false);
+   
     if (error) {
         return [];
     }
-    
-    return data.map((product) => ({
-        ...product,
-        price: Array.isArray(product.price) ? product.price[0] : product.price
-    })) as Product[];
+
+    return data.map((product) => {
+        const { prices, ...rest } = product;
+        return {
+            ...rest,
+            price: Array.isArray(prices) ? prices[0] : prices,
+        };
+    }) as Product[];
 }
 
 export const GetProductById = async (productId: string): Promise<Product | null> => {

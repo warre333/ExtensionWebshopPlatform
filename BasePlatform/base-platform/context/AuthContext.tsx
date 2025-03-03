@@ -1,3 +1,5 @@
+'use client';
+
 import { GetUserAndStore } from '@/lib/functions';
 import React, {
     createContext,
