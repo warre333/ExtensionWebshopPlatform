@@ -1,3 +1,10 @@
+04/03: I will be testing Storybook.
+03/03: Querying of the products for the webshop. The products are shown on the webshop page.
+26/02: Set up Storybook, I will be testing this for a while to see if it is useful for the project.
+22/02: Put the authentication in a context provider. This way I can use the authentication in the whole application and is it easier to understand.
+20/02: The first webshop UI is made.
+19/02 (school projects started): Function to retrieve a store by the slug. 
+12/02: Fixed problem with whitespaces in the template rendering.
 11/02: Tailwind configuration for liquid templates.
 10/02: Started on the webshop page. Webshops are shown on a subdomain with their slug. This will render a default liquid template.
 09/02: Continued with making the application responsive.
